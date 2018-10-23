@@ -14,13 +14,13 @@ n_episodes = 1_000_000
 
 alpha = .7
 epsilon = EpsilonDecay(1, 0, .99)
-gamma = .5
+gamma = 1
 
 #-------------------------------------------------------------------------------
 
 env = gym.make(environment)
 nA = env.action_space.n
-agent = QLearningAgent(nA, alpha, epsilon, gamma)
+agent = SarsaAgent(nA, alpha, epsilon, gamma)
 
 latest_scores = deque(maxlen=avg_window)
 for i_episode in range(1, n_episodes+1):

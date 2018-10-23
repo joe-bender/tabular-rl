@@ -18,7 +18,7 @@ class MCAgent:
         action = self.epsilon.greedy(self.Q[state])
         self.actions.append(action)
         return action
-    
+
     def step(self, next_state, reward, done):
         self.rewards.append(reward)
         if done:
@@ -30,7 +30,7 @@ class MCAgent:
             action = self.epsilon.greedy(self.Q[next_state])
             self.actions.append(action)
             return action
-    
+
     def updateQ(self):
         assert(len(self.states) == len(self.actions) == len(self.rewards))
         episode_steps = len(self.states)
