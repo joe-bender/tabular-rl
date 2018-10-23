@@ -2,21 +2,25 @@ import gym
 from collections import deque
 import numpy as np
 from EpsilonDecay import EpsilonDecay
+from MCAgent import MCAgent
+from SarsaAgent import SarsaAgent
 from QLearningAgent import QLearningAgent
+from ExpSarsaAgent import ExpSarsaAgent
 
 environment = 'Taxi-v2'
-n_episodes = 1_000_000
 avg_window = 100
 solution = 9.7
+n_episodes = 1_000_000
 
-alpha = 0.4
+alpha = .7
 epsilon = EpsilonDecay(1, 0, .99)
+gamma = .5
 
 #-------------------------------------------------------------------------------
 
 env = gym.make(environment)
 nA = env.action_space.n
-agent = QLearningAgent(nA, alpha, epsilon)
+agent = QLearningAgent(nA, alpha, epsilon, gamma)
 
 latest_scores = deque(maxlen=avg_window)
 for i_episode in range(1, n_episodes+1):
