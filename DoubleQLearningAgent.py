@@ -23,13 +23,14 @@ class DoubleQLearningAgent:
         action = self.last_action
         # flip coin to choose which Q to update
         if np.random.rand() > .5:
-            a = np.argmax(self.Q1[next_state])
-            target = reward + self.gamma * self.Q2[next_state][a]
-            self.Q1[state][action] += self.alpha * (target - self.Q1[state][action])
+            Q1 = self.Q1
+            Q2 = self.Q2
         else:
-            a = np.argmax(self.Q2[next_state])
-            target = reward + self.gamma * self.Q1[next_state][a]
-            self.Q2[state][action] += self.alpha * (target - self.Q2[state][action])
+            Q1 = self.Q2
+            Q2 = self.Q1
+        a = np.argmax(Q1[next_state])
+        target = reward + self.gamma * Q2[next_state][a]
+        Q1[state][action] += self.alpha * (target - Q1[state][action])
         # choose next action using average of Q values
         self.epsilon.decay()
         stack = np.stack([self.Q1[next_state], self.Q2[next_state]])
