@@ -8,8 +8,8 @@ environment = 'Taxi-v2'
 n_episodes = 1_000_000
 avg_window = 100
 
-alpha = 0.2
-epsilon = EpsilonDecay(1, 0, .9999)
+alpha = 0.1
+epsilon = EpsilonDecay(1, 0, .99999)
 
 #-------------------------------------------------------------------------------
 
@@ -33,5 +33,5 @@ for i_episode in range(1, n_episodes+1):
     avg_score = np.mean(latest_scores)
     if i_episode > avg_window:
         print('Episode: {}, '.format(i_episode), end='')
-        print('Avg Score: {}, '.format(score), end='')
-        print('Epsilon: {}'.format(epsilon.value))
+        print('Avg Score: {:4d}, '.format(score), end='')
+        print('Epsilon: {:7.5f}'.format(epsilon.value))
